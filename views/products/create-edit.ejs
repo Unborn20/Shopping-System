@@ -1,0 +1,79 @@
+<main>
+    <!-- NOT FOUND PRODUCT MESSAGE -->
+    <% if(data.msg){ %>
+        <span><%= data.msg %></span>
+    <% } %>
+    <!-- FORM PRODUCT -->
+    <h1><%= title %> product</h1>
+    <form       
+        id="product-form"
+        accept-charset="UTF-8"
+        enctype="multipart/form-data"
+        name="<%= id %>"
+    >
+        <label for="name">Name: </label>
+        <p>
+            <input
+                type="text"
+                name="name"
+                value="<%= (data.product) ? data.product.name : '' %>"
+                placeholder="Name"
+                autocomplete="off"
+            />
+        </p>
+        <label for="price">Price:</label>
+        <p>
+            <input
+                type="number"
+                name="price"
+                value="<%= (data.product) ? data.product.price : '' %>"
+                placeholder="Price"
+                autocomplete="off"
+                step="any"
+                min="0"
+            />
+        </p>
+        <label for="quantity">Quantity: </label>
+        <p>
+            <input
+                type="number"
+                name="quantity"
+                value="<%= (data.product) ? data.product.quantity : '' %>"
+                placeholder="Quantity"
+                autocomplete="off"
+            />
+        </p>
+        <label for="state">State: </label>
+        <p>
+            <select name="state" title="state">
+                <% if(!data.product){ %>
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                <% }else{ %>
+                    <% if(data.product.state){ %>
+                        <option value="1" selected>Active</option>
+                        <option value="0">Inactive</option>
+                    <% }else{ %>
+                        <option value="1">Active</option>
+                        <option value="0" selected>Inactive</option>
+                    <% } %>
+                <% } %>
+            </select>
+        </p>
+        <p>
+            <input type="file" name="imageProductId"/>
+        </p>
+        <p>
+            <img
+                id="preview"
+                src="<%= (data.product) ? `/image/${data.product.imageProductId}` : `/public/img/default.jpeg` %>"
+                alt="image"
+                width="200"
+                height="100"
+                draggable="false"
+            />
+        </p>
+        <input type="submit" name="submit-product" value="<%= title %> Product" />
+    </form>
+</main>
+<script type="text/javascript" src="/public/js/uploadImage/uploadProductImage.js"></script>

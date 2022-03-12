@@ -1,0 +1,37 @@
+<h2>
+    Products created by <%= user.name %>
+</h2>
+<main>
+    <!-- NOT FOUND MESSAGE -->
+    <% if(data.msg){ %>
+        <span> <%= data.msg %></span>
+    <% } %>
+    
+    <!-- PRODUCTS LIST -->
+    <% if(data.products){ %>
+        <% for(p of data.products) { %>
+            <article style="border: 1px solid black;">
+                <p>
+                    <img
+                        src="/image/<%= p.imageProductId %>"
+                        alt="productImage"
+                        width="200"
+                        height="100"
+                        draggable="false"
+                    />
+                </p>
+                <p><strong>Name:</strong> <%= p.name %></p>
+                <p><strong>Price:</strong> <%= p.price %></p>
+                <p><strong>Quantity:</strong> <%= p.quantity %></p>
+                <p><strong>State:</strong> <%= (p.state) ? 'Active' : 'Inactive' %></p>
+                <% if(user.roleId === 1){ %>
+                    <p>
+                        <a href="/products/form?id=<%= p.id %>">Edit Product</a>
+                        <button class="change" name="change" value="<%= p.id %>"><%= (p.state) ? 'Desactivate' : 'Active' %> Product</button>
+                    </p>
+                <% } %>
+            </article>
+        <% } %>
+    <% } %>
+</main>
+<script type="text/javascript" src="/public/js/desactive/desactiveProduct.js"></script>

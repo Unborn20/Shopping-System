@@ -1,0 +1,29 @@
+<h2>
+    Products
+</h2>
+<main>
+    <!-- NOT FOUND MESSAGE -->
+    <% if(data.msg){ %>
+        <span> <%= data.msg%></span>
+    <% } %>
+    
+    <!-- PRODUCTS LIST -->
+    <% if(data.products){ %>
+        <% for(p of data.products) { %>
+            <article style="border: 1px solid black;">
+                <p>
+                    <img
+                        src="/image/<%= p.imageProductId %>"
+                        alt="productImage"
+                        width="200"
+                        height="100"
+                        draggable="false"
+                    />
+                </p>
+                <p><strong>Name:</strong> <%= p.name %></p>
+                <p><strong>Price:</strong> <%= p.price %></p>
+                <p><strong>Quantity:</strong> <%= p.quantity %></p>
+            </article>
+        <% } %>
+    <% } %>
+</main>

@@ -1,0 +1,32 @@
+<nav>
+    <h4>
+        <a href="/">
+            Shopping System
+        </a>
+    </h4>
+    <ul>
+        <% if(!user){ %>
+            <li>
+                <a href="/auth/login">Login</a>
+            </li>
+            <li>
+                <a href="/auth/register">Register</a>
+            </li>
+        <% }else{ %>
+            <% if(user.roleId === 1){ %>
+                <li>
+                    <a href="/products/created/<%= user.id %>">Products created by <%= user.name %></a>
+                </li>
+                <li>
+                    <a href="/products/form">Create Product</a>
+                </li>
+            <% } %>
+            <li>
+                <a href="/products">Recent products</a>
+            </li>
+            <li>
+                <a href="/auth/logout">Log out</a>
+            </li>
+        <% } %>
+    </ul>
+</nav>
