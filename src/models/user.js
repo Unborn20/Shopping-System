@@ -8,7 +8,8 @@ User.init({
     name: orm.DataTypes.STRING(45),
     email: orm.DataTypes.STRING(50),
     password: orm.DataTypes.STRING(100),
-    roleId: orm.DataTypes.INTEGER
+    roleId: orm.DataTypes.INTEGER,
+    googleId: orm.DataTypes.STRING(100)
 }, {
   sequelize,
   modelName: 'User',

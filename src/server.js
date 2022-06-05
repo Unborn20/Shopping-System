@@ -43,7 +43,7 @@ app.use(
  * Static files
  */
 import path from 'path'
-const {pathname: root} = new URL('../src', import.meta.url)
+const { pathname: root } = new URL('../src', import.meta.url)
 app.use('/public', express.static(path.join(root, 'public')))
 
 /**
@@ -55,15 +55,29 @@ app.set('view engine', 'ejs')
 
 /**
  * Express session
- */ 
+ */
 import session from 'express-session'
+import SequelizeSessionInit from 'connect-session-sequelize'
+import sequelize from './connection/connection.js'
+
+const SequelizeStore = SequelizeSessionInit(session.Store)
+const sequelizeSessionOptions = new SequelizeStore({
+    db: sequelize,
+    checkExpirationInterval: 15 * 60 * 1000,
+    expiration: 8 * 60 * 60 * 1000
+});
+
 app.use(
     session({
-      secret: 'secret',
-      resave: false,
-      saveUninitialized: false
+        secret: 'secret',
+        resave: true,
+        saveUninitialized: true,
+        cookie: { maxAge: 8 * 60 * 60 * 1000 },
+        store: sequelizeSessionOptions
     })
 )
+
+sequelizeSessionOptions.sync()
 
 /**
  * Passport config
@@ -88,15 +102,15 @@ app.use(flash())
  */
 import fileUpload from 'express-fileupload'
 app.use(fileUpload({
-    useTempFiles : true,
-    tempFileDir : '/tmp/'
+    useTempFiles: true,
+    tempFileDir: '/tmp/'
 }))
 
 /** 
  * Global Variables
  */
 app.use((req, res, next) => {
-    res.locals.user = req.session.user || null
+    res.locals.user = req.user || null
     res.locals.success_msg = req.flash('success_msg')
     res.locals.info_msg = req.flash('info_msg')
     res.locals.error_msg = req.flash('error_msg')
@@ -117,6 +131,20 @@ app.use('/products', productRoute)
 
 import imageRouter from './routes/image.routes.js'
 app.use('/image', imageRouter)
+
+/**
+ * 404 Error
+ */
+app.use((req, res, next) => {
+    res.status(404).send('Sorry cant find that!');
+});
+
+/**
+ * 500 Error
+ */
+app.use((req, res, next) => {
+    res.status(500).send('Something broke!');
+});
 
 /**
  * Application instance

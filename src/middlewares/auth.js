@@ -1,14 +1,12 @@
-export const verifySession = (req, res, next) => {
-    const session = req.session;
-    if(!session.user){        
+export const verifySession = (req, res, next) => {    
+    if(!req.isAuthenticated()) {        
         return res.redirect('/auth/login');
     }
     return next();
 }
 
-export const verifyOfflineSession = (req, res, next) => {    
-    const session = req.session;    
-    if(session.user !== undefined){
+export const verifyOfflineSession = (req, res, next) => {
+    if(req.isAuthenticated()){
         return res.redirect('/');
     }
     return next();

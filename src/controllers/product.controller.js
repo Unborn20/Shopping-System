@@ -23,7 +23,7 @@ export async function getProducts(){
 
         if(!products.length) return {
             ok: false,
-            status: 404,
+            status: 202,
             data: { msg: 'Products not found' }
         }
 

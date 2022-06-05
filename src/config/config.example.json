@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "unborn",
+    "username": "example",
     "password": "123",
     "database": "shopping_store",
     "host": "localhost",

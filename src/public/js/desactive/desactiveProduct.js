@@ -2,7 +2,7 @@
 const changeButtons = document.querySelectorAll('.change')
 
 changeButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', async (e) => {
         e.preventDefault()
         const options = {
             method: 'PATCH',

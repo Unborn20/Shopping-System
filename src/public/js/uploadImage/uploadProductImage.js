@@ -13,8 +13,8 @@ input.addEventListener('change', async (e) => {
 })
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault()    
-    const elements = form.elements    
+    e.preventDefault()
+    const elements = form.elements
     const body = getValueForm(elements)
     try{
         if(input.files.length){
@@ -54,7 +54,7 @@ async function getImageId(image){
 function getValueForm(elements){
     const regex = /(submit|file)/
     return Object.keys(elements).reduce((body, field) => {
-        if(isNaN(field) && !regex.test(elements[field].type)){            
+        if(isNaN(field) && !regex.test(elements[field].type)){
             body[field] = elements[field].value
         }
         return body
